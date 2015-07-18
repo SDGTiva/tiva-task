@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+
+add() {
+	title="$1"
+	task_number=`ls $TIVA_PATH/tasks/ | echo -e "0\n$(cat)" | cut -f 1 -d . | sort | tail -n 1 | xargs expr 1 +`
+	echo "title,$title" > $TIVA_PATH/tasks/$task_number.csv
+}
+
+list() {
+	cat $TIVA_PATH/tasks/*.csv | cut -f 2 -d ,
+}
+
+command=$1
+shift
+$command "$@"
